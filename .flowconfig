@@ -17,8 +17,9 @@ flow/interfaces
 
 [options]
 module.name_mapper='\components/\(.*\)/\(.*\)' -> '<PROJECT_ROOT>/src/react/\1/\2'
+module.name_mapper='^\(.*\)\.scss$' -> '<PROJECT_ROOT>/flow/libs/CSSModule.js'
 module.name_mapper='\create' -> '<PROJECT_ROOT>/src/redux/create'
-module.name_mapper='\modules/\(.*\)' -> '<PROJECT_ROOT>/src/redux/modules/\1'
+module.name_mapper='\modules/\(.*\)' -> '<PROJECT_ROOT>/src/redux/modules/\1/\2'
 module.name_mapper='\(.*\)/\(.*\)/\(.*\)' -> '<PROJECT_ROOT>/src/\1/\2/\3'
 module.name_mapper='^\(.*\)\.scss$' -> '<PROJECT_ROOT>/flow/libs/CSSModule.js'
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
