@@ -1,0 +1,28 @@
+[ignore]
+.*/node_modules/fbjs/.*
+.*/node_modules/react/.*
+.*/node_modules/redux-actions/.*
+.*/node_modules/babel.*
+.*/node_modules/npmconf/.*
+.*/node_modules/classnames/.*
+.*/node_modules/config-chain/.*
+.*/node_modules/y18n/.*
+.*/node_modules/react-virtualized/.*
+.*/node_modules/editions/.*
+
+[include]
+
+[libs]
+flow/interfaces
+
+[options]
+module.name_mapper='\components/\(.*\)/\(.*\)' -> '<PROJECT_ROOT>/src/react/\1/\2'
+module.name_mapper='\create' -> '<PROJECT_ROOT>/src/redux/create'
+module.name_mapper='\modules/\(.*\)' -> '<PROJECT_ROOT>/src/redux/modules/\1'
+module.name_mapper='\(.*\)/\(.*\)/\(.*\)' -> '<PROJECT_ROOT>/src/\1/\2/\3'
+module.name_mapper='^\(.*\)\.scss$' -> '<PROJECT_ROOT>/flow/libs/CSSModule.js'
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+
+esproposal.class_static_fields=ignore
+esproposal.decorators=ignore
+esproposal.class_instance_fields=ignore

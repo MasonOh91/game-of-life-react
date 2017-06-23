@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -19,8 +20,9 @@ module.exports = {
             styles: path.resolve(__dirname, 'src/styles'),
             utils: path.resolve(__dirname, 'src/shared/utilities'),
             static: path.resolve(__dirname, 'static'),
-            redux: path.resolve(__dirname, 'src/redux'),
-            modules: path.resolve(__dirname, 'src/redux/modules')
+            create: path.resolve(__dirname, 'src/redux/create'),
+            modules: path.resolve(__dirname, 'src/redux/modules'),
+            components: path.resolve(__dirname, 'src/react/')
         }
     },
     output: {
@@ -83,6 +85,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new DashboardPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
