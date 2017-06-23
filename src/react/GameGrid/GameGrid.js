@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class GameGrid extends Component {
-    render() {
-      <p>ey world</p>
-    }
-}
+export default () => (
+  <p>ey world</p>
+);
