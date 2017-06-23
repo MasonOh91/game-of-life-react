@@ -8,7 +8,7 @@ import createStore from 'redux/create';
 import { FocusStyleManager } from '@blueprintjs/core';
 import Routes from './routes.js';
 
-FocusStyleManager.onlyShowFocusOnTabs();
+FocusStyleManager.onlyShowFocusOnTabs(); // im down with it, but remove this if we need acessibility
 const store = createStore();
 
 render(
