@@ -16,11 +16,11 @@ module.exports = {
             'node_modules'
         ],
         alias: {
-            Styles: path.resolve(__dirname, 'src/styles'),
-            Utilities: path.resolve(__dirname, 'src/shared/utilities'),
-            Static: path.resolve(__dirname, 'static'),
-            Redux: path.resolve(__dirname, 'src/redux'),
-            config$: path.resolve(__dirname, 'config.js')
+            styles: path.resolve(__dirname, 'src/styles'),
+            utils: path.resolve(__dirname, 'src/shared/utilities'),
+            static: path.resolve(__dirname, 'static'),
+            redux: path.resolve(__dirname, 'src/redux'),
+            modules: path.resolve(__dirname, 'src/redux/modules')
         }
     },
     output: {

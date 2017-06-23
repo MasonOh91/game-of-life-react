@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import users from './users';
-import auth from './auth';
+import users from 'modules/users';
 
 export default combineReducers({
-    auth,
-    users
+    game
 });
