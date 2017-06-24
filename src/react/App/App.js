@@ -19,7 +19,7 @@ export default class App extends Component<void, AppProps, void> {
   }
 
   componentDidMount() {
-    this.props.initGridCells();
+    // this.props.initGridCells();
   }
 
   render() {

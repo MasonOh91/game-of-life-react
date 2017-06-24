@@ -64,29 +64,28 @@ const calcNeighbor = (cells: List<List<number>>, row: number, col: number) => {
   return cells.getIn([row, col]);
 };
 
-const stepGeneration = (state: GameState) => state.gridCells.withMutations((newCells) => {
-  newCells.forEach((row: List<number>, i: number) => {
-    debugger;
+const stepGeneration = (state: GameState) => List().withMutations((newCells) => {
+  state.gridCells.forEach((row: List<number>, i: number) => {
     const upperrow = (i - 1);
     const rowbelow = (i + 1) >= state.gridSize ? -1 : (i + 1);
     row.forEach((newCell, j: number) => {
       const leftcol = (j - 1);
       const rightcol = (j + 1) >= state.gridSize ? -1 : (j + 1);
       const neighborz = {
-        topleft: calcNeighbor(newCells, upperrow, leftcol),
-        top: calcNeighbor(newCells, upperrow, j),
-        topright: calcNeighbor(newCells, upperrow, rightcol),
-        left: calcNeighbor(newCells, i, leftcol),
-        right: calcNeighbor(newCells, i, rightcol),
-        bottomleft: calcNeighbor(newCells, rowbelow, leftcol),
-        bottom: calcNeighbor(newCells, rowbelow, j),
-        bottomright: calcNeighbor(newCells, rowbelow, rightcol)
+        topleft: calcNeighbor(state.gridCells, upperrow, leftcol),
+        top: calcNeighbor(state.gridCells, upperrow, j),
+        topright: calcNeighbor(state.gridCells, upperrow, rightcol),
+        left: calcNeighbor(state.gridCells, i, leftcol),
+        right: calcNeighbor(state.gridCells, i, rightcol),
+        bottomleft: calcNeighbor(state.gridCells, rowbelow, leftcol),
+        bottom: calcNeighbor(state.gridCells, rowbelow, j),
+        bottomright: calcNeighbor(state.gridCells, rowbelow, rightcol)
       };
       let liveneighborz = 0;
-      Object.values(neighborz).forEach((neighbor) => {
+      Object.values(neighborz).forEach((neighbor: number) => {
         liveneighborz += neighbor;
       });
-        // update live cell
+      // update live cell
       if (state.gridCells.getIn([i, j]) === 1) {
         if (liveneighborz < 2 || liveneighborz > 3) {
           newCells = newCells.setIn([i, j], 0); //dies
@@ -100,6 +99,7 @@ const stepGeneration = (state: GameState) => state.gridCells.withMutations((newC
           newCells = newCells.setIn([i, j], 0); //stays dead
         }
       }
+      debugger;
     });
   });
 });

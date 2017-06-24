@@ -21,7 +21,7 @@ export default class GameGrid extends Component<void, GameGridProps, void> {
     const startX = xpos * cellSize;
     const startY = ypos * cellSize;
 
-    this.canvasContext.fillStyle = 'rgb(255, 0, 0, 1)';
+    this.canvasContext.fillStyle = 'rgba(255, 0, 0, 1)';
     if (alive) {
       this.canvasContext.fillRect(startX, startY, cellSize, cellSize);
     } else {

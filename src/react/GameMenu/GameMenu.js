@@ -45,5 +45,17 @@ export default (props: GameMenuProps) => (
     >
       Step Generation
     </a>
+
+    <a role="button"
+      className="pt-button pt-intent-primary"
+      tabIndex="0"
+      onClick={() => {
+        setInterval(() => {
+          props.stepGenerationAction();
+        }, 50);
+      }}
+    >
+      Live Life
+    </a>
   </div>
 );
