@@ -19,6 +19,8 @@
     "comma-dangle": [0],
     "no-underscore-dangle": [0],
     "react/jsx-first-prop-new-line": [0],
-    "no-plusplus": [0]
+    "no-plusplus": [0],
+    "no-mixed-operators": [0],
+    "no-useless-constructor": [0]
   }
 }

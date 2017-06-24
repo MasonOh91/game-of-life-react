@@ -8,7 +8,8 @@ type AppProps = {
   cellsPerRow: number,
   cells: Array<Array<number>>,
   setGridSize: (size: number) => void,
-  initGridCells: () => void
+  initGridCells: () => void,
+  randomizeGridCells: () => void
 }
 
 export default class App extends Component<void, AppProps, void> {

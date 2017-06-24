@@ -18,6 +18,7 @@ export const setGridSize = createAction(GameActions.SET_GRID_SIZE,
 export const setGridCells = createAction(GameActions.INIT_GRID_CELLS,
   (width: List<List<number>>) => width);
 export const initGridCells = createAction(GameActions.INIT_GRID_CELLS);
+export const randomizeGridCells = createAction(GameActions.RANDOMIZE_GRID);
 /**
  * Selectors
  */
@@ -39,6 +40,22 @@ const recalculateGridSize = (size: number): List<List<number>> =>
      return newCells;
    });
 
+const randomizeBin = (min: number = 0, max: number = 1): number => (
+  Math.floor(Math.random() * (max - min + 1)) + min
+);
+
+const randomCells = (state: GameState): List<List<number>> =>
+    state.gridCells.withMutations((cells) => {
+      let newCells;
+      for (let i = 0; i < cells.size; i++) {
+        newCells = cells.set(i, List());
+        for (let j = 0; j < cells.size; j++) {
+          newCells = cells.setIn([i, j], randomizeBin());
+        }
+      }
+      return newCells;
+    });
+
 /**
  * Reducers
  */
@@ -55,6 +72,11 @@ reducers[GameActions.SET_GRID_SIZE] =
 reducers[GameActions.INIT_GRID_CELLS] =
 (state: GameState): GameState => (
   state.set('gridCells', recalculateGridSize(state.gridSize))
+);
+
+reducers[GameActions.RANDOMIZE_GRID] =
+(state: GameState): GameState => (
+  state.set('gridCells', randomCells(state))
 );
 
 export default handleActions(reducers, new GameState());

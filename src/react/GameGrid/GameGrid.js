@@ -15,35 +15,52 @@ export default class GameGrid extends Component<void, GameGridProps, void> {
   }
 
   lifeCanvas: any;
+  canvasContext: any;
+
+  drawCell(alive: boolean, xpos: number, ypos: number, cellSize: number) {
+    const startX = xpos * cellSize;
+    const startY = ypos * cellSize;
+
+    this.canvasContext.fillStyle = 'rgb(255, 0, 0, 1)';
+    if (alive) {
+      this.canvasContext.fillRect(startX, startY, cellSize, cellSize);
+    } else {
+      this.canvasContext.clearRect(startX, startY, cellSize, cellSize);
+    }
+  }
+
+  drawCells(nextProps: GameGridProps, cellSize: number) {
+    for (let i = 0; i < nextProps.cells.length; i++) {
+      for (let j = 0; j < nextProps.cells.length; j++) {
+        this.drawCell((nextProps.cells[j][i] === 1), i, j, cellSize);
+      }
+    }
+  }
 
   drawCanvasGrid(nextProps: GameGridProps) {
-    debugger;
     const cellSize = 10;
     const cellTotalSize = nextProps.cellWidth * cellSize;
 
     this.lifeCanvas.width = cellTotalSize;
     this.lifeCanvas.height = cellTotalSize;
-    const canvasContext = this.lifeCanvas.getContext && this.lifeCanvas.getContext('2d');
-    canvasContext.clearRect(0, 0, this.lifeCanvas.width, this.lifeCanvas.height);
+    this.canvasContext = this.lifeCanvas.getContext && this.lifeCanvas.getContext('2d');
+    this.canvasContext.clearRect(0, 0, this.lifeCanvas.width, this.lifeCanvas.height);
 
-    canvasContext.lineWidth = 1;
-    canvasContext.strokeStyle = 'rgba(0, 0, 0, 1)';
+    this.canvasContext.lineWidth = 1;
+    this.canvasContext.strokeStyle = 'rgba(200, 200, 200, 1)';
 
     // draw the grid
-    canvasContext.beginPath();
+    this.canvasContext.beginPath();
     for (let i = 0; i <= nextProps.cells.length; i++) {
-      canvasContext.moveTo(i * cellSize, 0);
-      canvasContext.lineTo(i * cellSize, cellTotalSize);
+      this.canvasContext.moveTo(i * cellSize, 0);
+      this.canvasContext.lineTo(i * cellSize, cellTotalSize);
     }
     for (let j = 0; j <= nextProps.cells.length; j++) {
-      canvasContext.moveTo(0, j * cellSize);
-      canvasContext.lineTo(cellTotalSize, j * cellSize);
+      this.canvasContext.moveTo(0, j * cellSize);
+      this.canvasContext.lineTo(cellTotalSize, j * cellSize);
     }
-    canvasContext.stroke();
-  }
-
-  drawGeneration() {
-    // TODO: jsfiddle
+    this.drawCells(nextProps, cellSize);
+    this.canvasContext.stroke();
   }
 
   componentDidMount() {

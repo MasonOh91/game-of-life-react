@@ -4,7 +4,8 @@ import styles from 'components/GameMenu/GameMenu.scss';
 
 type GameMenuProps = {
   cellsPerRow: number,
-  setGridSize: (size: number) => void
+  setGridSize: (size: number) => void,
+  randomizeGridCells: () => void
 }
 
 export default (props: GameMenuProps) => (
@@ -23,5 +24,15 @@ export default (props: GameMenuProps) => (
         dir="auto"
       />
     </label>
+
+    <a role="button"
+      className="pt-button pt-intent-primary"
+      tabIndex="0"
+      onClick={() => {
+        props.randomizeGridCells();
+      }}
+    >
+      Randomize Cells
+    </a>
   </div>
 );
