@@ -23,6 +23,7 @@ module.exports = {
       create: path.resolve(__dirname, 'src/redux/create'),
       modules: path.resolve(__dirname, 'src/redux/modules'),
       components: path.resolve(__dirname, 'src/react/'),
+      records: path.resolve(__dirname, 'src/redux/records')
     },
   },
   output: {

@@ -1,7 +1,6 @@
 [ignore]
 .*/node_modules/fbjs/.*
 .*/node_modules/react/.*
-.*/node_modules/redux-actions/.*
 .*/node_modules/babel.*
 .*/node_modules/npmconf/.*
 .*/node_modules/classnames/.*
@@ -10,18 +9,15 @@
 .*/node_modules/react-virtualized/.*
 .*/node_modules/editions/.*
 
-[include]
-
 [libs]
-flow/interfaces
+flow-typed
 
 [options]
 module.name_mapper='\components/\(.*\)/\(.*\)' -> '<PROJECT_ROOT>/src/react/\1/\2'
 module.name_mapper='^\(.*\)\.scss$' -> '<PROJECT_ROOT>/flow/libs/CSSModule.js'
 module.name_mapper='\create' -> '<PROJECT_ROOT>/src/redux/create'
-module.name_mapper='\modules/\(.*\)' -> '<PROJECT_ROOT>/src/redux/modules/\1/\2'
-module.name_mapper='\(.*\)/\(.*\)/\(.*\)' -> '<PROJECT_ROOT>/src/\1/\2/\3'
-module.name_mapper='^\(.*\)\.scss$' -> '<PROJECT_ROOT>/flow/libs/CSSModule.js'
+module.name_mapper='\modules/\(.*\)' -> '<PROJECT_ROOT>/src/redux/modules/\1'
+module.name_mapper='\records/\(.*\)' -> '<PROJECT_ROOT>/src/redux/records/\1'
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
 
 esproposal.class_static_fields=ignore
