@@ -5,7 +5,8 @@ import styles from 'components/GameMenu/GameMenu.scss';
 type GameMenuProps = {
   cellsPerRow: number,
   setGridSize: (size: number) => void,
-  randomizeGridCells: () => void
+  randomizeGridCells: () => void,
+  stepGenerationAction: () => void
 }
 
 export default (props: GameMenuProps) => (
@@ -33,6 +34,16 @@ export default (props: GameMenuProps) => (
       }}
     >
       Randomize Cells
+    </a>
+
+    <a role="button"
+      className="pt-button pt-intent-primary"
+      tabIndex="0"
+      onClick={() => {
+        props.stepGenerationAction();
+      }}
+    >
+      Step Generation
     </a>
   </div>
 );

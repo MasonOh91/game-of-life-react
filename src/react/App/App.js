@@ -9,7 +9,8 @@ type AppProps = {
   cells: Array<Array<number>>,
   setGridSize: (size: number) => void,
   initGridCells: () => void,
-  randomizeGridCells: () => void
+  randomizeGridCells: () => void,
+  stepGenerationAction: () => void
 }
 
 export default class App extends Component<void, AppProps, void> {

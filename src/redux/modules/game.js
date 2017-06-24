@@ -19,6 +19,7 @@ export const setGridCells = createAction(GameActions.INIT_GRID_CELLS,
   (width: List<List<number>>) => width);
 export const initGridCells = createAction(GameActions.INIT_GRID_CELLS);
 export const randomizeGridCells = createAction(GameActions.RANDOMIZE_GRID);
+export const stepGenerationAction = createAction(GameActions.STEP_GENERATION);
 /**
  * Selectors
  */
@@ -56,6 +57,53 @@ const randomCells = (state: GameState): List<List<number>> =>
       return newCells;
     });
 
+const calcNeighbor = (cells: List<List<number>>, row: number, col: number) => {
+  if (row < 0 || col < 0) {
+    return 0;
+  }
+  return cells.getIn([row, col]);
+};
+
+const stepGeneration = (state: GameState) => state.gridCells.withMutations((newCells) => {
+  newCells.forEach((row: List<number>, i: number) => {
+    debugger;
+    const upperrow = (i - 1);
+    const rowbelow = (i + 1) >= state.gridSize ? -1 : (i + 1);
+    row.forEach((newCell, j: number) => {
+      const leftcol = (j - 1);
+      const rightcol = (j + 1) >= state.gridSize ? -1 : (j + 1);
+      const neighborz = {
+        topleft: calcNeighbor(newCells, upperrow, leftcol),
+        top: calcNeighbor(newCells, upperrow, j),
+        topright: calcNeighbor(newCells, upperrow, rightcol),
+        left: calcNeighbor(newCells, i, leftcol),
+        right: calcNeighbor(newCells, i, rightcol),
+        bottomleft: calcNeighbor(newCells, rowbelow, leftcol),
+        bottom: calcNeighbor(newCells, rowbelow, j),
+        bottomright: calcNeighbor(newCells, rowbelow, rightcol)
+      };
+      let liveneighborz = 0;
+      Object.values(neighborz).forEach((neighbor) => {
+        liveneighborz += neighbor;
+      });
+        // update live cell
+      if (state.gridCells.getIn([i, j]) === 1) {
+        if (liveneighborz < 2 || liveneighborz > 3) {
+          newCells = newCells.setIn([i, j], 0); //dies
+        } else {
+          newCells = newCells.setIn([i, j], 1); //lives
+        }
+      } else if (state.gridCells.getIn([i, j]) === 0) {
+        if (liveneighborz === 3) {
+          newCells = newCells.setIn([i, j], 1); //repros
+        } else {
+          newCells = newCells.setIn([i, j], 0); //stays dead
+        }
+      }
+    });
+  });
+});
+
 /**
  * Reducers
  */
@@ -77,6 +125,10 @@ reducers[GameActions.INIT_GRID_CELLS] =
 reducers[GameActions.RANDOMIZE_GRID] =
 (state: GameState): GameState => (
   state.set('gridCells', randomCells(state))
+);
+
+reducers[GameActions.STEP_GENERATION] = (state: GameState): GameState => (
+  state.set('gridCells', stepGeneration(state))
 );
 
 export default handleActions(reducers, new GameState());
