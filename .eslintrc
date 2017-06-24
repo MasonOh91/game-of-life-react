@@ -18,6 +18,7 @@
     "import/extensions": [0],
     "comma-dangle": [0],
     "no-underscore-dangle": [0],
-    "react/jsx-first-prop-new-line": [0]
+    "react/jsx-first-prop-new-line": [0],
+    "no-plusplus": [0]
   }
 }

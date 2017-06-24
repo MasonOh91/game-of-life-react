@@ -4,8 +4,8 @@
 import { Record, List } from 'immutable';
 
 export class GameStatRecord extends Record({
-  gridSize: 1,
-  gridCells: List([List([0])])
+  gridSize: 30,
+  gridCells: List(List([0]))
 }) {
   gridSize: number;
   gridCells: List<List<number>>

@@ -17,10 +17,14 @@ export default class GameGrid extends Component<void, GameGridProps, void> {
   lifeCanvas: any;
 
   drawCanvasGrid(nextProps: GameGridProps) {
-    const canvasContext = this.lifeCanvas.getContext && this.lifeCanvas.getContext('2d');
-    canvasContext.clearRect(0, 0, this.lifeCanvas.width, this.lifeCanvas.height);
+    debugger;
     const cellSize = 10;
     const cellTotalSize = nextProps.cellWidth * cellSize;
+
+    this.lifeCanvas.width = cellTotalSize;
+    this.lifeCanvas.height = cellTotalSize;
+    const canvasContext = this.lifeCanvas.getContext && this.lifeCanvas.getContext('2d');
+    canvasContext.clearRect(0, 0, this.lifeCanvas.width, this.lifeCanvas.height);
 
     canvasContext.lineWidth = 1;
     canvasContext.strokeStyle = 'rgba(0, 0, 0, 1)';
