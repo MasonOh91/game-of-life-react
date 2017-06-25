@@ -73,6 +73,16 @@ export default class GameGrid extends Component<void, GameGridProps, void> {
     }
   }
 
+  /**
+   * a bit of an anti pattern, but we don't need to
+   * rerender the canvas, just redraw on it. TODO: investigate
+   * faster ways to render canvas in react.
+   * @return {[type]} [description]
+   */
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     return (
       <div className={styles.gameGrid}>
