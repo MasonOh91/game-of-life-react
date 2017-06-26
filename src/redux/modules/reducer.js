@@ -1,7 +1,6 @@
 /* @flow */
 import { combineReducers } from 'redux';
 import game, {
-  _getGridSize,
   _getGridCells
 } from 'modules/Game';
 
@@ -12,7 +11,6 @@ export type rootState = {
 };
 
 /* Colocated Selectors for maintainability */
-export const getGridSize = (state: rootState) => _getGridSize(state.game);
 export const getGridCells = (state: rootState) => _getGridCells(state.game);
 
 export default combineReducers({

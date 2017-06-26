@@ -2,55 +2,41 @@
 import { handleActions, createAction } from 'redux-actions';
 import GameState from 'records/GameRecords';
 import { List } from 'immutable';
+import { cellLayouts } from 'constants/cellConstants';
 
 /**
  * Actions and Action Creators
  */
 const GameActions = {
-  SET_GRID_SIZE: 'game-of-life-react/game/set-grid-size',
   INIT_GRID_CELLS: 'game-of-life-react/game/set-grid-cells',
   RANDOMIZE_GRID: 'game-of-life-react/game/randomize-grid',
   STEP_GENERATION: 'game-of-life-react/game/step-generation'
 };
 
-export const setGridSize = createAction(GameActions.SET_GRID_SIZE,
-  (height: number) => height);
 export const setGridCells = createAction(GameActions.INIT_GRID_CELLS,
   (width: List<List<number>>) => width);
 export const initGridCells = createAction(GameActions.INIT_GRID_CELLS);
 export const randomizeGridCells = createAction(GameActions.RANDOMIZE_GRID);
 export const stepGenerationAction = createAction(GameActions.STEP_GENERATION);
+
 /**
  * Selectors
  */
-export const _getGridSize = (state: GameState): number => state.gridSize;
-export const _getGridCells = (state: GameState): Array<Array<number>> => state.gridCells.toJS();
+export const _getGridCells = (state: GameState): List<List<number>> => state.gridCells;
 
 /**
  * Reducer helpers
  */
-const recalculateGridSize = (size: number): List<List<number>> =>
-   List().withMutations((cells) => {
-     let newCells;
-     for (let i = 0; i < size; i++) {
-       newCells = cells.set(i, List());
-       for (let j = 0; j < size; j++) {
-         newCells = cells.setIn([i, j], 0);
-       }
-     }
-     return newCells;
-   });
-
 const randomizeBin = (min: number = 0, max: number = 1): number => (
   Math.floor(Math.random() * (max - min + 1)) + min
 );
 
-const randomCells = (state: GameState): List<List<number>> =>
-    state.gridCells.withMutations((cells) => {
+const randomCells = (size: number): List<List<number>> =>
+    List().withMutations((cells) => {
       let newCells;
-      for (let i = 0; i < cells.size; i++) {
+      for (let i = 0; i < size; i++) {
         newCells = cells.set(i, List());
-        for (let j = 0; j < cells.size; j++) {
+        for (let j = 0; j < size; j++) {
           newCells = cells.setIn([i, j], randomizeBin());
         }
       }
@@ -67,10 +53,10 @@ const calcNeighbor = (cells: List<List<number>>, row: number, col: number) => {
 const stepGeneration = (state: GameState) => List().withMutations((newCells) => {
   state.gridCells.forEach((row: List<number>, i: number) => {
     const upperrow = (i - 1);
-    const rowbelow = (i + 1) >= state.gridSize ? -1 : (i + 1);
+    const rowbelow = (i + 1) >= state.gridCells.size ? -1 : (i + 1);
     row.forEach((newCell, j: number) => {
       const leftcol = (j - 1);
-      const rightcol = (j + 1) >= state.gridSize ? -1 : (j + 1);
+      const rightcol = (j + 1) >= state.gridCells.size ? -1 : (j + 1);
       const neighborz = {
         topleft: calcNeighbor(state.gridCells, upperrow, leftcol),
         top: calcNeighbor(state.gridCells, upperrow, j),
@@ -82,24 +68,23 @@ const stepGeneration = (state: GameState) => List().withMutations((newCells) => 
         bottomright: calcNeighbor(state.gridCells, rowbelow, rightcol)
       };
       let liveneighborz = 0;
-      Object.values(neighborz).forEach((neighbor: number) => {
+      Object.values(neighborz).forEach((neighbor: any) => {
         liveneighborz += neighbor;
       });
       // update live cell
       if (state.gridCells.getIn([i, j]) === 1) {
         if (liveneighborz < 2 || liveneighborz > 3) {
-          newCells = newCells.setIn([i, j], 0); //dies
+          newCells = newCells.setIn([i, j], 0);
         } else {
-          newCells = newCells.setIn([i, j], 1); //lives
+          newCells = newCells.setIn([i, j], 1);
         }
       } else if (state.gridCells.getIn([i, j]) === 0) {
         if (liveneighborz === 3) {
-          newCells = newCells.setIn([i, j], 1); //repros
+          newCells = newCells.setIn([i, j], 1);
         } else {
-          newCells = newCells.setIn([i, j], 0); //stays dead
+          newCells = newCells.setIn([i, j], 0);
         }
       }
-      debugger;
     });
   });
 });
@@ -109,23 +94,17 @@ const stepGeneration = (state: GameState) => List().withMutations((newCells) => 
  */
 const reducers = {};
 
-reducers[GameActions.SET_GRID_SIZE] =
-(state: GameState, action: {payload: number}): GameState => (
+reducers[GameActions.INIT_GRID_CELLS] =
+(state: GameState, action: {payload: string}): GameState => (
   state.merge({
-    gridSize: action.payload,
-    gridCells: recalculateGridSize(action.payload)
+    gridCells: cellLayouts[action.payload]
   })
 );
 
-reducers[GameActions.INIT_GRID_CELLS] =
-(state: GameState): GameState => (
-  state.set('gridCells', recalculateGridSize(state.gridSize))
-);
-
 reducers[GameActions.RANDOMIZE_GRID] =
-(state: GameState): GameState => (
-  state.set('gridCells', randomCells(state))
-);
+(state: GameState, action: {payload: number}): GameState => state.merge({
+  gridCells: randomCells(action.payload)
+});
 
 reducers[GameActions.STEP_GENERATION] = (state: GameState): GameState => (
   state.set('gridCells', stepGeneration(state))

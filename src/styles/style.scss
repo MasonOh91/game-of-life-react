@@ -2,12 +2,12 @@
 @import "variables";
 
 body {
-    background-color: $color-background;
+    background-color: $backgorund-color;
     overflow-y:scroll;
 }
 
 h1 {
-    color: $color-header-text;
+    color: #444;
     font-family: sans-serif;
     font-size: 21px;
     font-weight: 600;

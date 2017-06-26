@@ -1,9 +1,17 @@
 .gameGrid {
   flex-basis: 80%;
   padding: 20px;
-  border: 1px solid lightgrey;
 
   .lifeGrid {
     border: 1px solid;
+    display: block;
+    margin-left: 40px;
+  }
+
+  :global(.pt-popover-target) {
+    span {
+      cursor: pointer;
+      margin: 0 20px 20px 0;
+    }
   }
 }

@@ -1,3 +1,19 @@
+@import "~styles/variables";
+
 .gameMenuContainer {
   flex-basis: 20%;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: $container-color;
+
+  button {
+    margin-bottom: 20px;
+    width: 300px;
+  }
+
+  a {
+    margin: 10px 0;
+    width: 300px;
+  }
 }

@@ -18,11 +18,12 @@ module.exports = {
     ],
     alias: {
       styles: path.resolve(__dirname, 'src/styles'),
-      utils: path.resolve(__dirname, 'src/shared/utilities'),
+      constants: path.resolve(__dirname, 'src/constants'),
       static: path.resolve(__dirname, 'static'),
       create: path.resolve(__dirname, 'src/redux/create'),
       modules: path.resolve(__dirname, 'src/redux/modules'),
       components: path.resolve(__dirname, 'src/react/'),
+      records: path.resolve(__dirname, 'src/redux/records')
     },
   },
   output: {

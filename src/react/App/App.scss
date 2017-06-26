@@ -1,4 +1,8 @@
 .appContainer {
   display: flex;
   flex-direction: row;
+  justify-content: left;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }

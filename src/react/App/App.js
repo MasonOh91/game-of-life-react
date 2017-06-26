@@ -4,11 +4,11 @@ import styles from 'components/App/App.scss';
 import GameMenu from 'components/GameMenu/GameMenu';
 import GameGrid from 'components/GameGrid/GameGrid';
 
+import type { List } from 'immutable';
+
 type AppProps = {
-  cellsPerRow: number,
-  cells: Array<Array<number>>,
-  setGridSize: (size: number) => void,
-  initGridCells: () => void,
+  cells: List<List<number>>,
+  initGridCells: (ket: string) => void,
   randomizeGridCells: () => void,
   stepGenerationAction: () => void
 }
@@ -19,15 +19,19 @@ export default class App extends Component<void, AppProps, void> {
   }
 
   componentDidMount() {
-    // this.props.initGridCells();
+    this.props.initGridCells('akitaExample');
   }
 
   render() {
     return (
       <div className={styles.appContainer}>
-        <GameMenu {...this.props} />
-        <GameGrid cells={this.props.cells}
-          cellWidth={this.props.cellsPerRow}
+        <GameMenu
+          stepGenerationAction={this.props.stepGenerationAction}
+        />
+        <GameGrid
+          randomizeGridCells={this.props.randomizeGridCells}
+          initGridCells={this.props.initGridCells}
+          cells={this.props.cells}
         />
       </div>
     );
