@@ -1,63 +1,35 @@
-[![npm][npm]][npm-url]
-[![node][node]][node-url]
-[![deps][deps]][deps-url]
+# game-of-life-react
 
-# react-app-scaffolding
-
-This scaffolding is to help lay the foundatation for large scalable front end applications, using:
+I've decided to attempt making the game of life in react/redux! I've decided to use react and redux mainly as a way to create a potential learning example for others, putting this stack to practical use. This stack includes:
 * React
 * Redux
   * Duck Pattern
 * Webpack
   * Path resolution
-  * Code-splitting
   * Hot Module Reloading (Dev server)
 * BlueprintJS (UI Component Library)
 * SASS Modules
-* JWT Middleware
-* AWS
-  * S3
 
-The idea is to clone the repo, and get started on development right away, with room to grow your application the right way without having to refactor or reorganize your file structure down the road.
+## Run the app
 
-## Development Setup
+This app contains a `yarn` file, if you wish you clone this repo and add dependencies, I recommend using [yarn](https://yarnpkg.com/en/) over `npm`. However, if you just wish to checkout the examples in the code, `npm` will do fine.
 
-1. First clone the repository: `git@github.com:malechite/react-app-scaffolding.git`
-2. Change directories: `cd react-app-scaffolding`
-3. Install Dependencies: `yarn install`
-4. Start the dev server: `yarn start`
+1. First clone the repository
+2. Change directories: `cd game-of-life-react`
+3. Install Dependencies: `yarn` or `npm install`
+4. Start the dev server: `yarn start` or `npm run start`
 5. go to [http://localhost:8080/](http://localhost:8080/) in your browser
 
-## Building
+## Logic
 
-To build react-app-scaffolding run `yarn build` - This will empty the `/dist` folder and webpack will build new artifacts.
+The large bulk of the base logic for solving "the game of life" is container in [src/redux/modules/game.js](https://github.com/MasonOh91/game-of-life-react/blob/master/src/redux/modules/game.js#L79). It should be noted that this repo uses [Immutable.js](https://facebook.github.io/immutable-js/) for keeping state immutable (which is the redux way of life). The logic for solving this puzzle was the standard "2d array" solution.
 
-## Deploying
+## Display
 
-You can deploy to S3 from the command line:
+React/Redux are, honestly, a bit overkill for this puzzle. However as previously stated, I wanted to solve it using this stack (or rather import the logic into this stack) as a potential teaching tool for future use.
 
-1. Copy `bin/config.example.js` to `bin/config.js`
-2. Update the `bin/config.js` file with your AWS credentials. (AWS credentials are used to deploy to S3 only, and aren't required for development)
+The display is using the `<canvas>` element, and thus there isn't much need for react to re-render the grid. However react re-renders the statistics used in the display as well as passes down state to the grid to provide new coordinates for re-drawing the `<canvas>`. Using `<canvas>` for this game was great, as it prevents us from rendering a large amount of DOM elements.
 
-- `yarn deploy-dev` deploys to the bucket set for `development`
-- `yarn deploy-qa` depploys to `staging`
-- `yarn deploy-prod` deploys to `production`
+## Issues
 
-## Dependencies
-
-react-app-scaffolding uses the following libraries and dependencies:
-
-- [Yarn](https://yarnpkg.com/en/)
-- [React](https://facebook.github.io/react/docs/hello-world.html)
-- [React Router 4](https://reacttraining.com/react-router/web/guides/quick-start)
-- [Redux](http://redux.js.org/)
-- [Webpack 2](https://webpack.js.org/configuration/)
-
-[npm]: https://img.shields.io/npm/v/style-loader.svg
-[npm-url]: https://npmjs.com/package/style-loader
-
-[node]: https://img.shields.io/node/v/style-loader.svg
-[node-url]: https://nodejs.org
-
-[deps]: https://david-dm.org/webpack/style-loader.svg
-[deps-url]: https://david-dm.org/webpack/file-loader
+I plan on adding onto this app in the future, and will mark issues in the [Issues](https://github.com/MasonOh91/game-of-life-react/issues) section of this repo.
