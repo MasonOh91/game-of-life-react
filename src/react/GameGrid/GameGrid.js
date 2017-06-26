@@ -8,7 +8,9 @@ import type { List } from 'immutable';
 type GameGridProps = {
   randomizeGridCells: (size: number) => void,
   initGridCells: (key: string) => void,
-  cells: List<List<number>>
+  clearGenerationInterval: () => void,
+  cells: List<List<number>>,
+  generationInMotion: boolean
 }
 
 export default class GameGrid extends Component<void, GameGridProps, void> {
@@ -19,11 +21,13 @@ export default class GameGrid extends Component<void, GameGridProps, void> {
   }
 
   componentDidMount() {
-    this.drawCanvasGrid(this.props);
+    if (this.props.generationInMotion) {
+      this.drawCanvasGrid(this.props);
+    }
   }
 
   componentWillReceiveProps(nextProps: GameGridProps) {
-    if (nextProps !== this.props) {
+    if (nextProps !== this.props && nextProps.generationInMotion) {
       this.drawCanvasGrid(nextProps);
     }
   }
@@ -86,6 +90,7 @@ export default class GameGrid extends Component<void, GameGridProps, void> {
             <MenuItem
               iconName="pt-icon-grid"
               onClick={() => {
+                this.props.clearGenerationInterval();
                 this.props.initGridCells('akitaExample');
               }}
               text="Akita Example"
@@ -93,6 +98,7 @@ export default class GameGrid extends Component<void, GameGridProps, void> {
             <MenuItem
               iconName="pt-icon-flows"
               onClick={() => {
+                this.props.clearGenerationInterval();
                 this.props.initGridCells('gosperGlider');
               }}
               text="Gosper Gliders"
@@ -100,6 +106,7 @@ export default class GameGrid extends Component<void, GameGridProps, void> {
             <MenuItem
               iconName="pt-icon-help"
               onClick={() => {
+                this.props.clearGenerationInterval();
                 this.props.randomizeGridCells(50);
               }}
               text="Randomize Cells"

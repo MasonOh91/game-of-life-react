@@ -3,16 +3,31 @@ import React from 'react';
 import styles from 'components/GameMenu/GameMenu.scss';
 
 type GameMenuProps = {
-  stepGenerationAction: () => void
+  stepGenerationAction: () => void,
+  generation: number,
+  cellsAlive: number,
+  cellsDead: number,
+  generationInMotion: boolean,
+  clearGenerationInterval: () => void,
+  setGenerationInterval: () => void
 }
 
 export default (props: GameMenuProps) => (
   <div className={styles.gameMenuContainer}>
+
+    <div className={styles.statusBox}>
+      <p>Generation Info</p>
+      <p>Generation: {props.generation}</p>
+      <p>Alive: {props.cellsAlive}</p>
+      <p>Dead: {props.cellsDead}</p>
+    </div>
     <a role="button"
       className="pt-button"
       tabIndex="0"
       onClick={() => {
-        props.stepGenerationAction();
+        if (props.generationInMotion) {
+          props.stepGenerationAction();
+        }
       }}
     >
       Step Generation
@@ -22,9 +37,7 @@ export default (props: GameMenuProps) => (
       className="pt-button"
       tabIndex="0"
       onClick={() => {
-        setInterval(() => {
-          props.stepGenerationAction();
-        }, 50);
+        props.setGenerationInterval();
       }}
     >
       Live Life

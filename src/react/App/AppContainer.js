@@ -2,7 +2,12 @@
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getGridCells } from 'modules/reducer';
+import { getGridCells,
+  getGeneration,
+  getCellsAlive,
+  getCellsDead,
+  getGenerationInMotion
+ } from 'modules/reducer';
 import { initGridCells,
   randomizeGridCells,
   stepGenerationAction } from 'modules/Game';
@@ -13,7 +18,11 @@ import type { Dispatch } from 'redux';
 
 function mapStateToProps(state: rootState): Object {
   return {
-    cells: getGridCells(state)
+    cells: getGridCells(state),
+    generation: getGeneration(state),
+    cellsAlive: getCellsAlive(state),
+    cellsDead: getCellsDead(state),
+    generationInMotion: getGenerationInMotion(state)
   };
 }
 
