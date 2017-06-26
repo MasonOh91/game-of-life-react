@@ -6,13 +6,13 @@ I've decided to attempt making the game of life in react/redux! I've decided to 
   * Duck Pattern
 * Webpack
   * Path resolution
-  * Hot Module Reloading (Dev server)
+* Immuatble JS
 * BlueprintJS (UI Component Library)
 * SASS Modules
 
 ## Run the app
 
-This app contains a `yarn` file, if you wish you clone this repo and add dependencies, I recommend using [yarn](https://yarnpkg.com/en/) over `npm`. However, if you just wish to checkout the examples in the code, `npm` will do fine.
+This app contains a `yarn.lock` file, if you wish you clone this repo and add dependencies, I recommend using [yarn](https://yarnpkg.com/en/) over `npm`. However, if you just wish to checkout the examples in the code, `npm` will do fine.
 
 1. First clone the repository
 2. Change directories: `cd game-of-life-react`
