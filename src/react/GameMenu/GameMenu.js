@@ -8,7 +8,6 @@ type GameMenuProps = {
   cellsAlive: number,
   cellsDead: number,
   generationInMotion: boolean,
-  clearGenerationInterval: () => void,
   setGenerationInterval: () => void
 }
 
@@ -40,7 +39,7 @@ export default (props: GameMenuProps) => (
         props.setGenerationInterval();
       }}
     >
-      Live Life
+      Live Life!
     </a>
   </div>
 );

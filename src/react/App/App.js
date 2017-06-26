@@ -55,7 +55,6 @@ export default class App extends Component<void, AppProps, void> {
           cellsDead={this.props.cellsDead}
           generationInMotion={this.props.generationInMotion}
           setGenerationInterval={this.setGenerationInterval}
-          clearGenerationInterval={this.clearGenerationInterval}
         />
         <GameGrid
           randomizeGridCells={this.props.randomizeGridCells}
