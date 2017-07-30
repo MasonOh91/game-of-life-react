@@ -1,7 +1,5 @@
 # game-of-life-react
 
-This is a WIP, and time I'm able to spend on it has fallen short as of recent. Check back for more details later.
-
 I've decided to attempt making the game of life in react/redux! I've decided to use react and redux mainly as a way to create a potential learning example for others, putting this stack to practical use. This stack includes:
 * React
 * Redux
